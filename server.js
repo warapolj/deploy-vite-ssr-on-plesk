@@ -8,7 +8,7 @@ const base = process.env.BASE || '/'
 
 // Cached production assets
 const templateHtml = isProduction
-  ? await fs.readFile('./dist/client/index.html', 'utf-8')
+  ? await fs.readFile('./dist/client/public/index.html', 'utf-8')
   : ''
 const ssrManifest = isProduction
   ? await fs.readFile('./dist/client/.vite/ssr-manifest.json', 'utf-8')
@@ -43,7 +43,7 @@ app.use('*', async (req, res) => {
     let render
     if (!isProduction) {
       // Always read fresh template in development
-      template = await fs.readFile('./index.html', 'utf-8')
+      template = await fs.readFile('./public/index.html', 'utf-8')
       template = await vite.transformIndexHtml(url, template)
       render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render
     } else {
